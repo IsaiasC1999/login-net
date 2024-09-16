@@ -1,0 +1,6 @@
+@login_isaias_HostAddress = http://localhost:5065
+
+GET {{login_isaias_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
