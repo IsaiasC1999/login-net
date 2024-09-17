@@ -10,15 +10,32 @@ namespace login_isaias.Controllers;
 
 
 [ApiController]
-[Route("[Controller]")]
 
 public class AuthController : ControllerBase
-{    
-    [HttpGet("login")]
-    public ActionResult<string> Login(string user)
+{
+
+    [HttpPost("auth")]
+    public ActionResult<ResponseDto> Login(UserDto user)
     {
-        var token = CreateToken(user);
-        return Ok(token);
+
+        if (user.name.Equals("isaias") && user.clave.Equals("isaias"))
+        {
+            var token = CreateToken(user.name);
+            Response.Headers.Add("url", "3002/df");
+            return Ok(new ResponseDto
+            {
+                status = 200,
+                result = new
+                {
+                    id_usuario = 403,
+                    token_acceso = token,
+                    token_refresh = ""
+                }
+            });
+
+        }
+
+        return BadRequest("Usuario no encontrado");
     }
 
     private string CreateToken(string user)
@@ -39,6 +56,7 @@ public class AuthController : ControllerBase
         var token = tokenHangler.CreateToken(tokerDes);
         return tokenHangler.WriteToken(token);
     }
+
     [Authorize]
     [HttpGet("listado")]
     public ActionResult<List<string>> getAllUser()
@@ -47,7 +65,7 @@ public class AuthController : ControllerBase
         var listado = new List<string>(){
             "isaias","ramon","pedro"
         };
-       return listado; 
+        return listado;
     }
 }
 

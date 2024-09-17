@@ -1,0 +1,16 @@
+version: "3"
+services:
+  login-net:
+    build: ./
+    container_name: web-api-login
+    restart: always
+    ports:
+      - "9995:8080"
+    networks:
+      - jenking
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+
+networks:
+  jenking:
+    driver: bridge
