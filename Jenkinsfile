@@ -9,7 +9,7 @@ pipeline {
         stage('Run docker compose') {
             steps {
                 dir("${CARPETA_APLICACION}") {
-                    sh 'docker compose up -d'
+                    sh 'docker-compose up -d'
                 }
             }
         }
